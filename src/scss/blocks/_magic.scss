@@ -1,0 +1,72 @@
+.magic-list {
+    font-family: arsenal_f, sans-serif;
+    font-size: calc(var(--index) * 2.75);
+    padding: calc(var(--index) * 2.75);
+    &__item:first-child {
+       border-top: 1.5px solid var(--black);
+    }
+    &__item {
+        cursor: none;
+        color: var(--black);
+        display: block;
+        line-height: 0.9;
+        padding: calc(var(--index) * 3) calc(var(--index) * 7.5);
+        border-bottom: 1px solid rgba(0, 0, 0, 0.117);
+        counter-increment: my-counter;
+    }
+    &__item::before {
+        content: '(0' counter(my-counter) ')' ;
+        position: absolute;
+        font-size: calc(var(--index) * .95);
+        margin-left: calc(var(--index) * -2);
+        letter-spacing: .5px;
+        transition: transform var(--transition);
+        transition-delay: .025s;
+        will-change: transform;
+    }
+    &__item:hover .magic-list__header, 
+    .magic-list__item:hover::before {
+        transform: translate3d(calc(var(--index) * -5), 0, 0);
+    }
+    &__header {
+        width: calc(var(--index) * 25);
+        transition: transform var(--transition);
+        will-change: transform;
+    }
+    .cursor {
+        display: block;
+        --width: calc(var(--index) * 22);
+        --height: calc(var(--index) * 14);
+        position: fixed;
+        width: var(--width);
+        height: 0;
+        top: calc(var(--height) * -.5);
+        left: calc(var(--width) * -.5);
+        overflow: hidden;
+        transform: translate3d(var(--move-x), var(--move-y), 0);
+        transition: transform var(--transition-cursor), height 1s ease;
+        z-index: -1;
+        will-change: transform;
+       
+        &__image {
+            position: relative;
+            width: calc(var(--width) * 2);
+            height: calc(var(--height) * 2);
+            top: calc(var(--height) * -.4);
+            left: calc(var(--width) * -.25);
+            background-size: cover;
+            background-position: center;
+            transform: var(--cursor-transform) scale(1.5);
+            transition: transform var(--transition-cursor);
+        }
+    }
+    &__item:hover .cursor {
+        height: var(--height);
+    }
+    &__item:hover .cursor__image {
+        transform: var(--cursor-transform) scale(1);
+    }
+    
+}
+
+
